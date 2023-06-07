@@ -4,15 +4,15 @@ import { createServer } from "http";
 const rpc = new JSONRPCServer();
 
 rpc.addMethod("meow", (params, serverParams) => {
-  console.log('doing something important...')
-  
+  console.log("doing something important...");
+
   return "meow";
 });
 
 const server = createServer((req, res) => {
-  const { url } = req;
+  const { url, method } = req;
 
-  if (url === "/json-rpc") {
+  if (url === "/json-rpc" && method === "POST") {
     const data: Buffer[] = [];
 
     req.on("data", (chunk) => {
